@@ -1,0 +1,1 @@
+def another(): return 'hi'
