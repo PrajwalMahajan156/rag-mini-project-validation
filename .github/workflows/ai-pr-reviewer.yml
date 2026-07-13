@@ -26,7 +26,7 @@ jobs:
           cache: 'pip'
 
       - name: Install dependencies
-        run: pip install requests==2.32.3 openai==1.54.4
+        run: pip install requests==2.32.3 openai==1.54.4 "httpx<0.28.0"
 
       - name: Run AI Manager Audit
         env:
