@@ -1,12 +1,12 @@
 import os
-from typing import List, Dict, Any
+from typing import Dict, Any
 import PyPDF2
 import docx
 import pandas as pd
 from pptx import Presentation
 import google.generativeai as genai
-from PIL import Image
 from app.core.config import Config
+
 
 class DocumentLoader:
     @staticmethod
@@ -36,13 +36,6 @@ class DocumentLoader:
                 page_text = page.extract_text()
                 if page_text:
                     text += page_text + "\n"
-        
-        # If no text extracted, try OCR (scanned PDF)
-        if not text.strip():
-            # This is a simplified OCR for scanned PDFs. 
-            # In a real scenario, we'd convert pages to images first.
-            # For now, let's assume we need to handle this via image conversion if it's empty.
-            pass 
         return text
 
     @staticmethod
@@ -74,23 +67,41 @@ class DocumentLoader:
                     text += shape.text + "\n"
         return text
 
+    # Mapping of file extensions to their correct MIME types for Gemini API calls.
+    _IMAGE_MIME_TYPES: dict = {
+        ".png": "image/png",
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
+        ".tiff": "image/tiff",
+        ".bmp": "image/bmp",
+    }
+
     @staticmethod
     def _load_image(file_path: str) -> str:
         """
-        Extracts text from an image using Google Gemini 1.5 Flash.
+        Extracts text from an image using Google Gemini Vision.
+
+        Derives the correct MIME type from the file extension so that the
+        Gemini API receives accurate content-type metadata for all supported
+        image formats (PNG, JPEG, TIFF, BMP).
         """
         genai.configure(api_key=Config.GOOGLE_API_KEY)
         model = genai.GenerativeModel(Config.CHAT_MODEL)
-        
+
+        ext = os.path.splitext(file_path)[1].lower()
+        mime_type = DocumentLoader._IMAGE_MIME_TYPES.get(ext, "image/png")
+
         try:
             with open(file_path, "rb") as f:
                 image_data = f.read()
-            
-            response = model.generate_content([
-                "Extract all visible text from this image. Return ONLY the extracted text, nothing else.",
-                {"mime_type": "image/png", "data": image_data}
-            ])
-            
+
+            response = model.generate_content(
+                [
+                    "Extract all visible text from this image. Return ONLY the extracted text, nothing else.",
+                    {"mime_type": mime_type, "data": image_data},
+                ]
+            )
+
             return response.text
         except Exception as e:
             print(f"Error in Gemini OCR: {e}")
@@ -101,5 +112,5 @@ class DocumentLoader:
         return {
             "filename": os.path.basename(file_path),
             "size": os.path.getsize(file_path),
-            "extension": os.path.splitext(file_path)[1].lower()
+            "extension": os.path.splitext(file_path)[1].lower(),
         }
