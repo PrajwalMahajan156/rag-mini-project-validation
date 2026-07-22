@@ -2,11 +2,8 @@
 Unit tests for DocumentLoader MIME type resolution and security token creation.
 """
 
-import os
-import sys
 from datetime import timedelta, timezone
 
-import pytest
 
 # ---------------------------------------------------------------------------
 # DocumentLoader – MIME type resolution

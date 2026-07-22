@@ -36,13 +36,6 @@ class DocumentLoader:
                 page_text = page.extract_text()
                 if page_text:
                     text += page_text + "\n"
-
-        # If no text extracted, try OCR (scanned PDF)
-        if not text.strip():
-            # This is a simplified OCR for scanned PDFs.
-            # In a real scenario, we'd convert pages to images first.
-            # For now, let's assume we need to handle this via image conversion if it's empty.
-            pass
         return text
 
     @staticmethod
