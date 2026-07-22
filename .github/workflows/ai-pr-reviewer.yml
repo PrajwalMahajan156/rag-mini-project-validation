@@ -10,6 +10,10 @@ permissions:
   pull-requests: write   # needed to post/update the review comment
   issues: write          # PR comments are technically "issue" comments via the API
 
+concurrency:
+  group: pr-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   review:
     runs-on: ubuntu-latest
@@ -26,7 +30,9 @@ jobs:
           cache: 'pip'
 
       - name: Install dependencies
-        run: pip install requests==2.32.3 openai==1.54.4
+        # openai>=1.57.0 drops the deprecated 'proxies' kwarg usage that broke
+        # against httpx>=0.28. Pin to 1.57.4 for a stable, reproducible build.
+        run: pip install requests==2.32.3 openai==1.57.4 "httpx>=0.28.0"
 
       - name: Run AI Manager Audit
         env:
