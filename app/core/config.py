@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 class Config:
     GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
     UPLOAD_DIR = "uploads"
@@ -12,6 +13,7 @@ class Config:
     CHUNK_OVERLAP = 100
     EMBEDDING_MODEL = "models/gemini-embedding-001"
     CHAT_MODEL = "gemini-3-flash-preview"
+
 
 # Ensure directories exist
 os.makedirs(Config.UPLOAD_DIR, exist_ok=True)
