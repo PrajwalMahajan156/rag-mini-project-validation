@@ -1,6 +1,7 @@
-# Environment variables
+# Environment variables and secrets — NEVER commit these
 .env
 .env.*
+!.env.example
 
 # Python
 .venv/
@@ -16,3 +17,30 @@ __pycache__/
 
 # OS generated files
 .DS_Store
+
+# Private keys and certificates — NEVER commit these
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+
+# Database files (may contain real data)
+*.db
+*.sqlite
+*.sqlite3
+
+# Secret scanning baseline (contains hashes of known findings)
+.secrets.baseline
+
+# Test and tool caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
