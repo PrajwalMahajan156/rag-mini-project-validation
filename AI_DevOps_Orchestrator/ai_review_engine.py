@@ -43,6 +43,7 @@ IGNORED_FILE_PATTERNS = (
     "Gemfile.lock", "Cargo.lock", "go.sum",
     ".min.js", ".min.css", ".map",
     "dist/", "build/", "vendor/", "node_modules/",
+    ".pkl", ".faiss", ".pdf", ".png", ".docx", ".pptx", ".xlsx"
 )
 
 BOT_COMMENT_MARKER = "<!-- ai-manager-proxy-review -->"
