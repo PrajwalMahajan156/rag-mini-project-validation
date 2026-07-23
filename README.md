@@ -1,46 +1,74 @@
-# AI-powered Document-Based Chatbot Generator
+# AI DevOps Orchestrator + RAG Validation Repository
 
-A sophisticated system that dynamically creates custom chatbots based on uploaded documents. Built with FastAPI, LangChain, and Google Gemini.
+> **Enterprise-Grade AI-Powered Code Review System**
 
-## Features
-- **Dynamic Bot Creation**: Automatically generates a chatbot for any uploaded document.
-- **Multi-Format Support**: Handles PDF, DOCX, TXT, CSV, XLSX, PPTX, and Images (OCR).
-- **Advanced RAG**: Uses Google Gemini Pro for generation and Gemini Embeddings for retrieval.
-- **Real-Time Streaming**: Interactive chat experience with streaming responses.
-- **Modern UI**: Premium, responsive dashboard for document management and chatting.
+---
 
-## Setup
+## 📦 This Repository Contains TWO Projects
 
-1. **Clone the repository**:
-   ```bash
-   git clone <repository-url>
-   cd MAIN_PROJECT_FOR_RAG
-   ```
+### 🔧 Project 1: [AI DevOps Orchestrator](AI_DevOps_Orchestrator/)
 
-2. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+Our **primary enterprise product** — an intelligent, automated PR review system that:
+- Integrates natively with GitHub Actions
+- Analyzes code diffs using Llama 3.3 70B (via Groq)
+- Reviews for Security, Correctness, Performance, and Maintainability
+- Posts detailed review comments directly on PRs
+- Blocks merges when critical issues are found
+- Completes reviews in **40-60 seconds**
 
-3. **Configure Environment**:
-   Create a `.env` file and add your Google Gemini API Key:
-   ```env
-   GOOGLE_API_KEY=your_gemini_api_key_here
-   ```
+### 🧪 Project 2: [RAG PR Validation Project](RAG_PR_Validation_Project/)
 
-4. **Run the application**:
-   ```bash
-   uvicorn app.main:app --reload
-   ```
+A **sample RAG-based chatbot application** used exclusively to validate the AI PR Review Agent. This is NOT the main product — it serves as a test subject with intentional code quality variations.
 
-## Folder Structure
-- `app/`: Backend logic (FastAPI, services, core).
-- `static/`: Frontend assets (HTML, CSS, JS).
-- `uploads/`: Temporary storage for uploaded documents.
-- `data/`: Persistent storage for vector indexes and logs.
+---
 
-## Technology Stack
-- **Backend**: FastAPI, LangChain, Google Generative AI
-- **Vector DB**: FAISS
-- **Frontend**: Vanilla HTML/CSS/JS (Premium Aesthetics)
-- **OCR**: Tesseract OCR
+## 📂 Repository Structure
+
+```
+├── AI_DevOps_Orchestrator/       ← Core product (AI PR Review Agent)
+├── RAG_PR_Validation_Project/    ← Sample app for validation
+├── docs/                         ← Complete enterprise documentation
+│   ├── architecture/
+│   ├── workflows/
+│   ├── agents/
+│   ├── reports/
+│   ├── diagrams/
+│   └── archive/
+├── demo_assets/                  ← Demo scripts & presentation materials
+└── README.md                     ← This file
+```
+
+## 📄 Key Documents
+
+| Document | Location |
+|----------|----------|
+| **Master Demo Guide** | [docs/AI_DEVOPS_ORCHESTRATOR_DEMO_GUIDE.md](docs/AI_DEVOPS_ORCHESTRATOR_DEMO_GUIDE.md) |
+| **Architecture** | [docs/architecture/ARCHITECTURE.md](docs/architecture/ARCHITECTURE.md) |
+| **Demo Script** | [demo_assets/DEMO_SCRIPT.md](demo_assets/DEMO_SCRIPT.md) |
+| **Demo Checklist** | [demo_assets/DEMO_CHECKLIST.md](demo_assets/DEMO_CHECKLIST.md) |
+| **Project Structure** | [docs/architecture/PROJECT_STRUCTURE.md](docs/architecture/PROJECT_STRUCTURE.md) |
+
+## 🚀 Quick Start
+
+```bash
+# For the AI DevOps Orchestrator (CI/CD integration):
+# Set GROQ_API_KEY in GitHub repository secrets
+# The workflow triggers automatically on PRs
+
+# For the RAG Validation Project (local development):
+cd RAG_PR_Validation_Project
+pip install -r requirements.txt
+cp .env.example .env  # Fill in GOOGLE_API_KEY and JWT_SECRET
+uvicorn app.main:app --reload
+```
+
+## 🏗 Technology Stack
+
+| Component | Technology |
+|-----------|-----------|
+| AI/LLM | Llama 3.3 70B via Groq Cloud |
+| CI/CD | GitHub Actions |
+| API Client | OpenAI Python SDK (Groq-compatible) |
+| Review Engine | Python 3.11 |
+| Version Control | Git + GitHub |
+ 
